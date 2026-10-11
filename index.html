@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>جدول مواد الإذاعة والتلفزيون</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fff; --page:#DFE4EC; --ink:#111418; --mute:#7A8496; --hair:#EAEDF2;
+  --c101:#3B5BDB; --c211:#E64980; --c212:#0CA678; --c311:#F59F00; --c313:#7048E8; --c413:#3D4457;
+  --rail:78px; --hour:76px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--page);font-family:'Poppins','Tajawal',system-ui,sans-serif;color:var(--ink);
+  padding:28px 18px 60px;-webkit-font-smoothing:antialiased}
+.sheet{background:var(--paper);max-width:1500px;margin:0 auto;border-radius:24px;padding:34px 34px 40px}
+.bars{display:flex;height:7px;border-radius:4px;overflow:hidden;margin-bottom:24px}
+.bars span{flex:1}
+h1{font-family:'Tajawal',sans-serif;font-size:clamp(26px,4.6vw,42px);font-weight:700;line-height:1.2}
+.sub{font-size:15px;color:var(--mute);margin-top:6px;direction:ltr;text-align:right}
+.meta{display:flex;flex-wrap:wrap;gap:28px;margin-top:20px;padding-bottom:22px;border-bottom:1px solid var(--hair)}
+.mk{font-size:11px;color:#9AA3B2;font-weight:500}
+.mv{font-size:16px;font-weight:600;margin-top:2px}
+.mv.ar{font-family:'Tajawal',sans-serif;font-weight:700}
+
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 6px}
+.chip{font-family:'Tajawal','Poppins',sans-serif;font-size:13.5px;font-weight:500;border:1px solid var(--hair);
+  background:#fff;color:#4B5563;padding:8px 14px;border-radius:20px;cursor:pointer;display:flex;align-items:center;gap:8px;
+  transition:.15s}
+.chip .dot{width:10px;height:10px;border-radius:3px;flex:none}
+.chip:hover{border-color:#C9D0DB}
+.chip.off{opacity:.38}
+.chip.reset{color:var(--mute)}
+
+.daytabs{display:none;gap:6px;margin:18px 0 4px;overflow-x:auto;padding-bottom:4px}
+.daytabs button{font-family:'Tajawal',sans-serif;font-size:15px;font-weight:700;border:0;background:#F2F4F8;
+  color:#4B5563;padding:10px 18px;border-radius:14px;cursor:pointer;white-space:nowrap}
+.daytabs button.on{background:var(--ink);color:#fff}
+
+.heads{display:flex;margin-top:22px}
+.heads .rail{width:var(--rail);flex:none}
+.hd{flex:1;padding-bottom:14px;min-width:0}
+.hda{font-family:'Tajawal',sans-serif;font-size:20px;font-weight:700}
+.hde{font-size:11px;color:#9AA3B2;font-weight:500;letter-spacing:1.3px;direction:ltr;text-align:right}
+.hd.today .hda{color:var(--c101)}
+
+.grid{display:flex}
+.rail{width:var(--rail);flex:none;position:relative}
+.tl{position:absolute;right:0;font-size:12px;color:#9AA3B2;font-weight:500;direction:ltr}
+.col{flex:1;position:relative;min-width:0}
+.hr{position:absolute;inset-inline:0;border-top:1px solid #F0F2F6}
+.blk{position:absolute;border-radius:13px;padding:12px 13px;color:#fff;overflow:hidden;cursor:pointer;
+  transition:transform .12s, box-shadow .12s;text-align:start}
+.blk:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(17,20,24,.18)}
+.btime{font-size:12.5px;font-weight:600;opacity:.85;direction:ltr;text-align:start}
+.btitle{font-size:15px;font-weight:600;line-height:1.25;margin-top:5px;direction:ltr;text-align:start}
+.blk.tight{padding:9px 11px}
+.blk.tight .btitle{font-size:13px;margin-top:3px;line-height:1.18}
+.blk.tight .btime{font-size:11.5px}
+.blk.hide{display:none}
+
+.list{display:none;margin-top:14px}
+.item{display:flex;align-items:stretch;gap:0;border-radius:14px;overflow:hidden;background:#F7F9FB;margin-bottom:10px}
+.item .edge{width:6px;flex:none}
+.item .body{padding:13px 15px}
+.item .t{font-size:13px;color:var(--mute);font-weight:600;direction:ltr;text-align:start}
+.item .n{font-size:16px;font-weight:600;margin-top:3px;direction:ltr;text-align:start}
+.empty{font-family:'Tajawal',sans-serif;color:var(--mute);padding:26px 4px;font-size:15px}
+
+.foot{margin-top:30px;padding-top:24px;border-top:1px solid var(--hair)}
+.indhd{font-family:'Tajawal',sans-serif;font-size:15px;font-weight:700;margin-bottom:11px}
+.ipill{display:inline-block;font-size:14px;font-weight:500;color:#5B6472;background:#F2F4F8;
+  padding:8px 15px;border-radius:20px;margin-inline-end:8px;margin-bottom:8px;direction:ltr}
+
+dialog{border:0;border-radius:20px;padding:0;max-width:340px;width:calc(100% - 40px);
+  box-shadow:0 24px 60px rgba(17,20,24,.28)}
+dialog::backdrop{background:rgba(17,20,24,.45)}
+.dtop{padding:22px 24px;color:#fff}
+.dtitle{font-size:19px;font-weight:600;line-height:1.3;direction:ltr;text-align:start}
+.dtime{font-size:14px;font-weight:600;opacity:.86;margin-top:6px;direction:ltr;text-align:start}
+.dbody{padding:18px 24px 22px}
+.drow{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid var(--hair);font-size:14.5px}
+.drow:last-of-type{border:0}
+.drow .k{font-family:'Tajawal',sans-serif;color:var(--mute)}
+.drow .v{font-weight:600;direction:ltr}
+.dclose{font-family:'Tajawal',sans-serif;width:100%;margin-top:14px;border:0;background:#F2F4F8;color:var(--ink);
+  font-size:15px;font-weight:700;padding:12px;border-radius:13px;cursor:pointer}
+
+@media (max-width:860px){
+  body{padding:14px 10px 40px}
+  .sheet{border-radius:18px;padding:22px 18px 28px}
+  .heads,.grid{display:none}
+  .daytabs{display:flex}
+  .list{display:block}
+  .meta{gap:18px}
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="bars" id="bars"></div>
+  <h1>جدول مواد الإذاعة والتلفزيون</h1>
+  <div class="sub">Radio &amp; TV Production — weekly lineup</div>
+  <div class="meta">
+    <div><div class="mk">الاستوديو</div><div class="mv">Radio &amp; TV Center – J2B</div></div>
+    <div><div class="mk">أيام الدوام</div><div class="mv ar">الاثنين – الجمعة</div></div>
+  </div>
+
+  <div class="filters" id="filters"></div>
+  <div class="daytabs" id="daytabs"></div>
+
+  <div class="heads" id="heads"><div class="rail"></div></div>
+  <div class="grid" id="grid"></div>
+  <div class="list" id="list"></div>
+
+  <div class="foot">
+    <div class="indhd">مواد بدون وقت محدد — دراسة مستقلة</div>
+    <span class="ipill">Broadcasting News</span><span class="ipill">Digital Media Pro. for Internet</span>
+  </div>
+</div>
+
+<dialog id="dlg">
+  <div class="dtop" id="dtop">
+    <div class="dtitle" id="dtitle"></div>
+    <div class="dtime" id="dtime"></div>
+  </div>
+  <div class="dbody">
+    <div class="drow"><span class="k">الشعبة</span><span class="v" id="dsec"></span></div>
+    <div class="drow"><span class="k">الأيام</span><span class="v" id="ddays"></span></div>
+    <div class="drow"><span class="k">القاعة</span><span class="v">Radio &amp; TV Center – J2B</span></div>
+    <button class="dclose" onclick="document.getElementById('dlg').close()">إغلاق</button>
+  </div>
+</dialog>
+
+<script>
+const DAYS=[["Mon","الاثنين"],["Tue","الثلاثاء"],["Wed","الأربعاء"],["Thu","الخميس"],["Fri","الجمعة"]];
+const COURSES={
+ c101:{name:"Intro to Radio & TV Production",color:"var(--c101)",hex:"#3B5BDB"},
+ c211:{name:"Script Writing",color:"var(--c211)",hex:"#E64980"},
+ c212:{name:"TV Direction",color:"var(--c212)",hex:"#0CA678"},
+ c311:{name:"Presentation & Delivery",color:"var(--c311)",hex:"#F59F00"},
+ c313:{name:"Documentary Films",color:"var(--c313)",hex:"#7048E8"},
+ c413:{name:"Grad. Project in Rad & TV Prod",color:"var(--c413)",hex:"#3D4457"}
+};
+const S=[
+ {c:"c101",sec:"1B",s:930,e:989,d:["Tue","Thu"]},
+ {c:"c101",sec:"2B",s:780,e:899,d:["Mon"]},
+ {c:"c101",sec:"3B",s:690,e:749,d:["Tue","Thu"]},
+ {c:"c211",sec:"1B",s:690,e:749,d:["Mon","Wed"]},
+ {c:"c212",sec:"1B",s:990,e:1109,d:["Mon","Wed"]},
+ {c:"c212",sec:"2B",s:780,e:899,d:["Tue","Thu"]},
+ {c:"c311",sec:"1B",s:540,e:659,d:["Thu"]},
+ {c:"c311",sec:"2B",s:1110,e:1229,d:["Wed"]},
+ {c:"c313",sec:"1B",s:540,e:659,d:["Tue"]},
+ {c:"c313",sec:"2B",s:990,e:1049,d:["Tue","Thu"]},
+ {c:"c413",sec:"B",s:570,e:689,d:["Fri"]},
+ {c:"c413",sec:"B",s:750,e:869,d:["Mon","Wed"]}
+];
+const H0=8,H1=21,HOUR=76;
+const on=new Set(Object.keys(COURSES));
+const pad=n=>String(n).padStart(2,"0");
+const fmt=m=>pad(Math.floor(m/60))+":"+pad(m%60);
+const arDay=k=>(DAYS.find(d=>d[0]===k)||["",""])[1];
+
+document.getElementById("bars").innerHTML=
+  Object.values(COURSES).map(c=>`<span style="background:${c.hex}"></span>`).join("");
+
+function lanes(items){
+  items=items.slice().sort((a,b)=>a.s-b.s||a.e-b.e);
+  const out=[];let cur=[],end=null;
+  const flush=()=>{if(!cur.length)return;const p=[];
+    cur.forEach(it=>{let l=0;while(p.some(x=>x.l===l&&!(it.s>=x.it.e||it.e<=x.it.s)))l++;p.push({l,it})});
+    const n=Math.max(...p.map(x=>x.l))+1;p.forEach(x=>out.push({...x,n}));cur=[];end=null;};
+  items.forEach(it=>{if(cur.length&&it.s>=end)flush();cur.push(it);end=end===null?it.e:Math.max(end,it.e)});
+  flush();return out;
+}
+
+function build(){
+  const heads=document.getElementById("heads"),grid=document.getElementById("grid");
+  heads.innerHTML='<div class="rail"></div>';grid.innerHTML="";
+  const rail=document.createElement("div");rail.className="rail";
+  rail.style.height=((H1-H0)*HOUR+24)+"px";
+  for(let h=H0;h<=H1;h++)
+    rail.insertAdjacentHTML("beforeend",`<div class="tl" style="top:${(h-H0)*HOUR-10}px">${pad(h)}:00</div>`);
+  grid.appendChild(rail);
+  const todayIdx=[null,"Mon","Tue","Wed","Thu","Fri",null][new Date().getDay()];
+  DAYS.forEach(([k,ar])=>{
+    heads.insertAdjacentHTML("beforeend",
+      `<div class="hd${k===todayIdx?" today":""}"><div class="hda">${ar}</div><div class="hde">${k}</div></div>`);
+    const col=document.createElement("div");col.className="col";
+    col.style.height=((H1-H0)*HOUR+24)+"px";
+    for(let h=H0;h<=H1;h++)
+      col.insertAdjacentHTML("beforeend",`<div class="hr" style="top:${(h-H0)*HOUR}px"></div>`);
+    lanes(S.filter(x=>x.d.includes(k))).forEach(({l,n,it})=>{
+      const co=COURSES[it.c],ht=(it.e-it.s)/60*HOUR-6,w=100/n;
+      const b=document.createElement("button");
+      b.className="blk"+(ht<86?" tight":"")+(on.has(it.c)?"":" hide");
+      b.dataset.course=it.c;
+      b.style.cssText=`top:${(it.s-H0*60)/60*HOUR}px;height:${ht}px;inset-inline-start:calc(${l*w}% + 4px);width:calc(${w}% - 8px);background:${co.color}`;
+      b.innerHTML=`<div class="btime">${fmt(it.s)} – ${fmt(it.e)}</div><div class="btitle">${co.name}</div>`;
+      b.onclick=()=>open(it);
+      col.appendChild(b);
+    });
+    grid.appendChild(col);
+  });
+}
+
+let day=(["Mon","Tue","Wed","Thu","Fri"].includes(["","Mon","Tue","Wed","Thu","Fri",""][new Date().getDay()]))
+  ?["","Mon","Tue","Wed","Thu","Fri",""][new Date().getDay()]:"Mon";
+
+function buildTabs(){
+  document.getElementById("daytabs").innerHTML=DAYS.map(([k,ar])=>
+    `<button data-d="${k}" class="${k===day?"on":""}">${ar}</button>`).join("");
+  document.querySelectorAll(".daytabs button").forEach(b=>b.onclick=()=>{day=b.dataset.d;buildTabs();buildList();});
+}
+
+function buildList(){
+  const items=S.filter(x=>x.d.includes(day)&&on.has(x.c)).sort((a,b)=>a.s-b.s);
+  const el=document.getElementById("list");
+  el.innerHTML=items.length?items.map(it=>{const c=COURSES[it.c];
+    return `<button class="item" style="width:100%;border:0;text-align:start;cursor:pointer" data-k="${S.indexOf(it)}">
+      <span class="edge" style="background:${c.color}"></span>
+      <span class="body"><span class="t">${fmt(it.s)} – ${fmt(it.e)}</span>
+      <span class="n" style="display:block">${c.name}</span></span></button>`}).join("")
+    :`<div class="empty">ما في محاضرات بهاليوم.</div>`;
+  el.querySelectorAll(".item").forEach(b=>b.onclick=()=>open(S[+b.dataset.k]));
+}
+
+function buildFilters(){
+  const f=document.getElementById("filters");
+  f.innerHTML=Object.entries(COURSES).map(([k,c])=>
+    `<button class="chip${on.has(k)?"":" off"}" data-c="${k}">
+      <span class="dot" style="background:${c.hex}"></span>${c.name}</button>`).join("")
+   +`<button class="chip reset" id="reset">إظهار الكل</button>`;
+  f.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>{
+    const k=b.dataset.c;on.has(k)?on.delete(k):on.add(k);render();});
+  document.getElementById("reset").onclick=()=>{Object.keys(COURSES).forEach(k=>on.add(k));render();};
+}
+
+function open(it){
+  const c=COURSES[it.c];
+  document.getElementById("dtop").style.background=c.color;
+  document.getElementById("dtitle").textContent=c.name;
+  document.getElementById("dtime").textContent=fmt(it.s)+" – "+fmt(it.e);
+  document.getElementById("dsec").textContent=it.sec;
+  document.getElementById("ddays").textContent=it.d.map(arDay).join(" · ");
+  document.getElementById("dlg").showModal();
+}
+
+function render(){buildFilters();buildTabs();build();buildList();}
+render();
+</script>
+</body>
+</html>
